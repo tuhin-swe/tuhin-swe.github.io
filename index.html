@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arifur Rahman Tuhin, SQA Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B1020; --bg-2:#111A33;
+    --text:#EAF0FF; --text-2:#B9C4E0; --muted:#8793B3;
+    --cyan:#2ED3F7; --violet:#8B7CFF; --pass:#3DDC97; --amber:#FFC46B; --red:#FF6B7A;
+    --glass:rgba(255,255,255,.055); --glass-2:rgba(255,255,255,.09); --edge:rgba(255,255,255,.12); --edge-2:rgba(255,255,255,.22);
+    --font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    --display:"Sora",var(--font);
+    --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+    --r:18px;
+    --btn-ink:#0B1020; --head-bg:rgba(255,255,255,.04); --grid:rgba(255,255,255,.035); --shadow:0 20px 50px rgba(0,0,0,.35);
+    --glow-1:rgba(46,211,247,.22); --glow-2:rgba(139,124,255,.26); --glow-3:rgba(61,220,151,.14);
+    color-scheme:dark;
+  }
+  :root[data-theme="light"]{
+    --bg:#F3F5FA; --bg-2:#E8ECF6;
+    --text:#15213A; --text-2:#3C4A66; --muted:#6B7690;
+    --cyan:#0B7FB8; --violet:#6B5CE6; --pass:#15935F; --amber:#A8650A;
+    --glass:rgba(255,255,255,.62); --glass-2:rgba(255,255,255,.8); --edge:rgba(21,33,58,.1); --edge-2:rgba(21,33,58,.2);
+    --btn-ink:#FFFFFF; --head-bg:rgba(21,33,58,.05); --grid:rgba(21,33,58,.06); --shadow:0 16px 40px rgba(21,33,58,.08);
+    --glow-1:rgba(46,211,247,.28); --glow-2:rgba(139,124,255,.26); --glow-3:rgba(61,220,151,.18);
+    color-scheme:light;
+  }
+  html{scroll-behavior:smooth;scroll-padding-top:84px}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:var(--font);color:var(--text);background:var(--bg);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:var(--cyan);text-decoration:none}
+  a:focus-visible,button:focus-visible{outline:3px solid var(--cyan);outline-offset:3px;border-radius:8px}
+  h1,h2,h3{margin:0;font-family:var(--display);line-height:1.15}
+  h2{font-size:2rem;font-weight:600;letter-spacing:-.01em}
+  .sub{color:var(--text-2);max-width:62ch;margin:10px 0 32px}
+  p{margin:0 0 12px}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 22px;position:relative}
+  section{padding:72px 0;position:relative}
+
+  /* ---------- ambient background ---------- */
+  .sky{position:fixed;inset:0;z-index:-1;background:
+    radial-gradient(900px 600px at 8% -10%, var(--glow-1), transparent 60%),
+    radial-gradient(800px 600px at 100% 10%, var(--glow-2), transparent 60%),
+    radial-gradient(700px 500px at 50% 110%, var(--glow-3), transparent 60%),
+    linear-gradient(180deg,var(--bg) 0%,var(--bg-2) 100%)}
+  .sky::after{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(ellipse at 50% 0%,#000 20%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000 20%,transparent 75%)}
+
+  /* ---------- glass ---------- */
+  .glass{background:var(--glass);border:1px solid var(--edge);border-radius:var(--r);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.12)}
+
+  /* ---------- buttons / chips ---------- */
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:12px 20px;border-radius:12px;font-weight:600;font-size:.95rem;color:var(--text);background:var(--glass-2);border:1px solid var(--edge-2);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:transform .15s,background .15s,border-color .15s}
+  .btn:hover{background:rgba(255,255,255,.14);transform:translateY(-1px)}
+  .btn.primary{background:linear-gradient(135deg,var(--cyan),var(--violet));border-color:transparent;color:var(--btn-ink)}
+  .btn.primary:hover{filter:brightness(1.07)}
+  .btn svg{width:18px;height:18px;flex:none}
+  .actions{display:flex;flex-wrap:wrap;gap:10px}
+  .chip{display:inline-block;font-size:.8rem;font-weight:500;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid var(--edge);color:var(--text-2)}
+  .chip.cyan{color:var(--cyan);border-color:rgba(46,211,247,.35);background:rgba(46,211,247,.1)}
+  .chip.violet{color:#C4BCFF;border-color:rgba(139,124,255,.4);background:rgba(139,124,255,.14)}
+  :root[data-theme="light"] .chip.violet{color:#4B3DC9;background:rgba(255,255,255,.7);border-color:rgba(107,92,230,.35)}
+  :root[data-theme="light"] .shot .ph span{color:#4A5574}
+  .chip.pass{color:var(--pass);border-color:rgba(61,220,151,.35);background:rgba(61,220,151,.1)}
+  .chip.amber{color:var(--amber);border-color:rgba(255,196,107,.35);background:rgba(255,196,107,.1)}
+  .chips{display:flex;flex-wrap:wrap;gap:7px}
+
+  /* ---------- nav ---------- */
+  .nav{position:sticky;top:0;z-index:40;backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);background:var(--glass);border-bottom:1px solid var(--edge)}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
+  .brand{display:flex;align-items:center;gap:10px;color:var(--text);font-family:var(--display);font-weight:600;font-size:1rem}
+  .brand i{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--cyan),var(--violet));color:var(--btn-ink);display:flex;align-items:center;justify-content:center;font-style:normal;font-size:.82rem;font-weight:700;letter-spacing:.02em}
+  .nav ul{list-style:none;margin:0;padding:0;display:flex;gap:4px}
+  .nav ul a{display:block;padding:8px 12px;border-radius:10px;color:var(--text-2);font-size:.92rem;font-weight:500;transition:background .15s,color .15s}
+  .nav ul a:hover,.nav ul a.on{background:var(--glass-2);color:var(--text)}
+  .nav .right{display:flex;align-items:center;gap:8px}
+  .icon-btn{width:40px;height:40px;border-radius:12px;border:1px solid var(--edge-2);background:var(--glass-2);color:var(--text);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+  .icon-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .icon-btn .sun,.icon-btn .moon{display:none}
+  :root[data-theme="light"] .icon-btn .moon{display:block}
+  :root:not([data-theme="light"]) .icon-btn .sun{display:block}
+  .menu-btn{display:none}
+  @media (max-width:860px){
+    .nav ul{display:none;position:absolute;left:0;right:0;top:64px;flex-direction:column;padding:10px 14px 14px;background:var(--bg);border-bottom:1px solid var(--edge)}
+    .nav.open ul{display:flex}
+    .menu-btn{display:inline-flex}
+  }
+
+  /* ---------- hero ---------- */
+  .hero{padding:72px 0 56px}
+  .hero .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center}
+  .avatar{width:112px;height:112px;border-radius:50%;padding:4px;background:linear-gradient(135deg,var(--cyan),var(--violet));box-shadow:0 10px 30px rgba(46,211,247,.25);margin-bottom:22px}
+  .avatar img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;border:3px solid var(--bg)}
+  .avatar{background:linear-gradient(135deg,var(--cyan),var(--violet))}
+  .kicker{display:inline-flex;align-items:center;gap:8px;color:var(--pass);font-weight:600;font-size:.92rem;margin-bottom:12px}
+  .kicker i{width:8px;height:8px;border-radius:50%;background:var(--pass);box-shadow:0 0 0 4px rgba(61,220,151,.2)}
+  h1{font-size:clamp(2.4rem,5vw,3.6rem);font-weight:700;letter-spacing:-.02em;margin-bottom:10px}
+  .title{font-size:1.2rem;color:var(--text-2);font-weight:500;margin-bottom:16px}
+  .tagline{font-size:1.08rem;color:var(--text-2);max-width:50ch;margin-bottom:26px}
+  .meta{color:var(--muted);font-size:.93rem;margin-top:16px}
+
+  /* test-run panel */
+  .report{overflow:hidden;font-family:var(--mono);font-size:.84rem}
+  .report-head{display:flex;justify-content:space-between;align-items:center;padding:13px 18px;border-bottom:1px solid var(--edge);background:var(--head-bg)}
+  .report-head b{font-weight:500;color:var(--text)}
+  .report-head .dots span{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--edge-2);margin-left:6px}
+  .report table{width:100%;border-collapse:collapse}
+  .report td{padding:12px 18px;border-top:1px solid var(--edge);vertical-align:middle;color:var(--text-2)}
+  .report tr:first-child td{border-top:0}
+  .report td:first-child{color:var(--muted);width:66px;white-space:nowrap}
+  .report td:last-child{text-align:right;width:128px;white-space:nowrap}
+  .pill{display:inline-block;white-space:nowrap;padding:3px 10px;border-radius:999px;font-weight:500;font-size:.76rem;letter-spacing:.03em}
+  .pill.pass{background:rgba(61,220,151,.15);color:var(--pass)}
+  .pill.run{background:rgba(255,196,107,.15);color:var(--amber)}
+  .report-foot{padding:11px 18px;border-top:1px solid var(--edge);color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .report-foot b{color:var(--pass);font-weight:500}
+  @media (prefers-reduced-motion:no-preference){
+    .report tr{opacity:0;transform:translateY(6px);animation:rowIn .5s ease forwards}
+    .report tr:nth-child(1){animation-delay:.15s}.report tr:nth-child(2){animation-delay:.35s}.report tr:nth-child(3){animation-delay:.55s}
+    .report tr:nth-child(4){animation-delay:.75s}.report tr:nth-child(5){animation-delay:.95s}.report tr:nth-child(6){animation-delay:1.15s}
+    @keyframes rowIn{to{opacity:1;transform:none}}
+  }
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+  .stat{padding:20px 22px}
+  .stat b{display:block;font-family:var(--display);font-size:2.1rem;font-weight:700;line-height:1;background:linear-gradient(135deg,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat span{display:block;color:var(--text-2);font-size:.92rem;margin-top:8px}
+
+  /* ---------- projects ---------- */
+  .filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+  .filters button{font:inherit;font-size:.86rem;font-weight:500;padding:8px 14px;border-radius:999px;border:1px solid var(--edge);background:rgba(255,255,255,.05);color:var(--text-2);cursor:pointer;transition:background .15s,color .15s}
+  .filters button:hover{background:rgba(255,255,255,.1);color:var(--text)}
+  .filters button.on{background:linear-gradient(135deg,rgba(46,211,247,.25),rgba(139,124,255,.25));border-color:var(--edge-2);color:var(--text)}
+  .projects{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .card{display:flex;flex-direction:column;overflow:hidden;transition:transform .2s,border-color .2s}
+  .card:hover{transform:translateY(-4px);border-color:var(--edge-2)}
+  .shot{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--bg-2);cursor:zoom-in}
+  .shot img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+  .card:hover .shot img{transform:scale(1.04)}
+  .shot .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;color:var(--text-2);background:linear-gradient(135deg,rgba(46,211,247,.18),rgba(139,124,255,.22));font-family:var(--display)}
+  .shot .ph b{font-size:2.4rem;font-weight:700;color:var(--text);letter-spacing:.02em}
+  .shot .ph span{font-size:.78rem;font-family:var(--font);color:var(--muted)}
+  .shot .dom{position:absolute;top:12px;left:12px}
+  .card .body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .card h3{font-size:1.08rem;font-weight:600}
+  .card .role{color:var(--cyan);font-size:.82rem;font-weight:600}
+  .card p{color:var(--text-2);font-size:.93rem;margin:0}
+  .card ul{margin:2px 0 0;padding-left:18px;color:var(--text-2);font-size:.9rem}
+  .card li{margin:3px 0}
+  .card .foot{margin-top:auto;padding-top:12px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--edge)}
+  .card .link{font-size:.88rem;font-weight:600}
+  .card .link:hover{text-decoration:underline}
+  .card.hide{display:none}
+  .empty{color:var(--muted);padding:30px;text-align:center}
+
+  /* lightbox */
+  .lb{position:fixed;inset:0;background:rgba(5,8,20,.85);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:50;padding:24px}
+  .lb.open{display:flex}
+  .lb img{max-width:min(1100px,96vw);max-height:90vh;border-radius:12px;border:1px solid var(--edge-2);box-shadow:0 30px 80px rgba(0,0,0,.6)}
+  .lb button{position:absolute;top:18px;right:18px;font:inherit;font-size:.9rem;font-weight:600;color:var(--text);background:var(--glass-2);border:1px solid var(--edge-2);border-radius:999px;padding:8px 14px;cursor:pointer}
+
+  /* ---------- about / spotlight / process ---------- */
+  .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .col{padding:24px}
+  .col .ic{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(46,211,247,.25),rgba(139,124,255,.25));border:1px solid var(--edge);margin-bottom:14px}
+  .col .ic svg{width:20px;height:20px;stroke:var(--cyan)}
+  .col h3{font-size:1.05rem;margin-bottom:8px}
+  .col p{color:var(--text-2);font-size:.95rem;margin:0}
+  .spot{padding:30px 34px;border-left:3px solid var(--pass)}
+  .spot h3{font-size:1.4rem;margin-bottom:10px}
+  .spot p{color:var(--text-2)}
+  .spot ul{margin:12px 0 0;padding-left:20px;color:var(--text-2)}
+  .spot li{margin:6px 0}
+  .spot .result{margin-top:18px;padding-top:14px;border-top:1px solid var(--edge);color:var(--text);font-weight:500}
+  .steps{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;counter-reset:step}
+  .step{position:relative;padding:28px 16px 18px}
+  .step::before{counter-increment:step;content:counter(step);position:absolute;top:-14px;left:16px;width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--violet));color:var(--btn-ink);font-size:.82rem;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--display)}
+  .step b{display:block;font-family:var(--display);font-size:1rem;margin-bottom:6px}
+  .step span{color:var(--text-2);font-size:.88rem;line-height:1.5;display:block}
+
+  /* ---------- experience ---------- */
+  .job{display:grid;grid-template-columns:170px 1fr;gap:20px;padding:26px 0;border-top:1px solid var(--edge)}
+  .job:last-child{border-bottom:1px solid var(--edge)}
+  .job .when{color:var(--muted);font-size:.92rem;padding-top:4px;font-family:var(--mono)}
+  .job h3{font-size:1.15rem;font-weight:600}
+  .job h3 span{color:var(--cyan)}
+  .job .path{color:var(--muted);font-size:.9rem;margin:2px 0 8px}
+  .job ul{margin:8px 0 0;padding-left:20px;color:var(--text-2)}
+  .job li{margin:5px 0}
+
+  /* ---------- skills / roadmap ---------- */
+  .skills{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .skill{padding:22px}
+  .skill h3{font-size:1rem;margin-bottom:12px}
+  .bar{height:10px;background:rgba(255,255,255,.08);border:1px solid var(--edge);border-radius:999px;overflow:hidden;margin:14px 0 8px}
+  .bar i{display:block;height:100%;width:8%;background:linear-gradient(90deg,var(--cyan),var(--pass));border-radius:999px}
+  .barlabel{display:flex;justify-content:space-between;color:var(--muted);font-size:.88rem;margin-bottom:22px}
+  .phases{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+  .phase{padding:16px}
+  .phase.now{border-color:rgba(61,220,151,.5);background:rgba(61,220,151,.08)}
+  .phase b{display:block;font-family:var(--display);font-size:.95rem;margin-bottom:6px}
+  .phase span{display:block;color:var(--text-2);font-size:.85rem;line-height:1.45}
+  .phase em{display:inline-block;margin-top:10px;font-style:normal;font-size:.76rem;font-weight:600;color:var(--muted)}
+  .phase.now em{color:var(--pass)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .two .box{padding:22px}
+  .two h3{font-size:1rem;margin-bottom:6px}
+  .two p{color:var(--text-2)}
+
+  /* ---------- footer ---------- */
+  footer{padding:56px 0 40px}
+  footer .box{padding:40px;text-align:center}
+  footer h2{margin-bottom:8px}
+  footer p{color:var(--text-2);max-width:56ch;margin:0 auto 24px}
+  footer .actions{justify-content:center}
+  footer small{display:block;margin-top:28px;color:var(--muted)}
+
+  @media (max-width:900px){
+    .hero .grid{grid-template-columns:1fr;gap:34px}
+    .projects{grid-template-columns:repeat(2,1fr)}
+    .steps{grid-template-columns:repeat(3,1fr);row-gap:30px}
+    .phases{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:620px){
+    section{padding:52px 0}
+    h2{font-size:1.6rem}
+    .stats,.cols,.skills,.two,.projects{grid-template-columns:1fr}
+    .job{grid-template-columns:1fr;gap:8px}
+    .steps{grid-template-columns:repeat(2,1fr)}
+    .phases{grid-template-columns:1fr}
+    .spot{padding:24px 20px}
+    .report{font-size:.78rem}.report td{padding:10px 10px}.report td:first-child{width:52px;padding-left:14px}.report td:last-child{width:auto;padding-right:14px}.report-head,.report-foot{padding-left:14px;padding-right:14px}
+  }
+</style>
+</head>
+<body>
+<div class="sky" aria-hidden="true"></div>
+
+<nav class="nav" id="nav" aria-label="Site">
+  <div class="wrap">
+    <a class="brand" href="#top"><i>AT</i>Arifur Rahman Tuhin</a>
+    <ul id="navLinks">
+      <li><a href="#work">Projects</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#process">How I work</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#roadmap">Road to SDET</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="right">
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="Switch theme" title="Switch light / dark">
+        <svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <div class="avatar"><img src="https://github.com/tuhin-swe.png" alt="Arifur Rahman Tuhin"></div>
+        <div class="kicker"><i></i>SQA Engineer at RazinSoft, Dhaka</div>
+        <h1>Arifur Rahman Tuhin</h1>
+        <div class="title">Manual, API and mobile app testing across live SaaS products</div>
+        <p class="tagline">I break software so users never have to. Every website, admin panel and mobile app I test passes through a full business flow before it reaches a customer.</p>
+        <div class="actions">
+          <a class="btn primary" href="resume.pdf.pdf" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>View resume</a>
+          <a class="btn" href="https://github.com/tuhin-swe" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A11.5 11.5 0 0 0 .5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.26 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>GitHub</a>
+          <a class="btn" href="https://www.linkedin.com/in/arifur-rahman-tuhin-swe/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>LinkedIn</a>
+          <a class="btn" href="mailto:arifur.swe@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email</a>
+        </div>
+        <div class="meta">Open to SQA Engineer and SDET roles</div>
+      </div>
+
+      <div class="report glass" aria-label="Summary of skills shown as a test run report">
+        <div class="report-head"><b>test-run: arifur_rahman_tuhin</b><span class="dots"><span></span><span></span><span></span></span></div>
+        <table>
+          <tr><td>TC-01</td><td>End-to-end manual testing (web, admin, mobile)</td><td><span class="pill pass">PASS</span></td></tr>
+          <tr><td>TC-02</td><td>REST API testing with Postman</td><td><span class="pill pass">PASS</span></td></tr>
+          <tr><td>TC-03</td><td>Bug reports with root cause and severity</td><td><span class="pill pass">PASS</span></td></tr>
+          <tr><td>TC-04</td><td>Retesting fixes before release</td><td><span class="pill pass">PASS</span></td></tr>
+          <tr><td>TC-05</td><td>Fixing defects in the codebase (ReadyPOS)</td><td><span class="pill pass">PASS</span></td></tr>
+          <tr><td>TC-06</td><td>Automation with Playwright and K6</td><td><span class="pill run">IN PROGRESS</span></td></tr>
+        </table>
+        <div class="report-foot"><span>6 cases · <b>5 passed</b> · 1 running</span><span>10+ products · 5 industries</span></div>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat glass"><b>10+</b><span>live SaaS products tested end to end</span></div>
+      <div class="stat glass"><b>5</b><span>industries: e-commerce, food delivery, ride sharing, property, retail POS</span></div>
+      <div class="stat glass"><b>6</b><span>surfaces: website, admin panel, customer, seller, rider and driver apps</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= PROJECTS ================= -->
+<section id="work">
+  <div class="wrap">
+    <h2>Projects</h2>
+    <p class="sub">Live products I test at work and QA work I've published. Click a screenshot to see it full size.</p>
+    <div class="filters" id="filters"></div>
+    <div class="projects" id="projectGrid"></div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about">
+  <div class="wrap">
+    <h2>About</h2>
+    <p class="sub">My path into QA wasn't the usual one. I spent a year at Shohoz Software supporting clients directly and coordinating fixes with developers, which taught me how a bug actually affects a user, not just how it reads in a test case. That's what pulled me into testing full-time.</p>
+    <div class="cols">
+      <div class="col glass">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div>
+        <h3>End-to-end testing</h3>
+        <p>A product is tested as one connected system: a customer orders, a seller accepts, a rider delivers, the admin sees it all. If any role breaks the chain, the release waits.</p>
+      </div>
+      <div class="col glass">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="m8 2 1.5 2M16 2l-1.5 2M3 13h3M18 13h3M6 7h12v6a6 6 0 0 1-12 0z"/><path d="M12 13v8"/></svg></div>
+        <h3>Bug reports that get fixed</h3>
+        <p>Exact reproduction steps, root-cause analysis, severity and priority. Checkout-blocking and payment issues are flagged Critical so the team can triage fast. Every fix is retested before release.</p>
+      </div>
+      <div class="col glass">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg></div>
+        <h3>API and beyond</h3>
+        <p>REST API testing in Postman for status codes, payloads and business logic such as fees and commissions. On ReadyPOS I stepped into the codebase and shipped fixes and features myself.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SPOTLIGHT ================= -->
+<section>
+  <div class="wrap">
+    <div class="spot glass">
+      <span class="chip pass" style="margin-bottom:12px">Spotlight</span>
+      <h3>ReadyPOS, where QA met development</h3>
+      <p>After testing the system end to end and reporting every issue, I was given codebase access and took ownership of getting it customer-ready.</p>
+      <ul>
+        <li>Fixed defects directly in a dedicated QA branch and verified each fix myself</li>
+        <li>Built new features by thinking like a shop owner: what a customer needs on day one, where they might get stuck, and what makes daily use effortless</li>
+        <li>Refined the UI across the product so it works as one cohesive, modern system</li>
+        <li>Used AI-assisted development tools to implement and verify changes faster</li>
+      </ul>
+      <div class="result">Outcome: a POS product shaped around real business needs, with QA and development working as a single loop.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROCESS ================= -->
+<section id="process">
+  <div class="wrap">
+    <h2>How I work</h2>
+    <p class="sub">The same loop on every release, so nothing reaches production untested and nothing fixed slips back in.</p>
+    <div class="steps">
+      <div class="step glass"><b>Understand</b><span>Read the requirement and the admin, seller and rider workflows behind it</span></div>
+      <div class="step glass"><b>Design</b><span>Write test cases for the full flow, not just the screen</span></div>
+      <div class="step glass"><b>Test</b><span>Run it end to end across web, admin panel and mobile apps</span></div>
+      <div class="step glass"><b>Report</b><span>Steps, root cause, severity and priority the developer can act on</span></div>
+      <div class="step glass"><b>Fix</b><span>Partner with developers, or fix it myself when I have the codebase</span></div>
+      <div class="step glass"><b>Retest</b><span>Verify the fix across releases, then sign off</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EXPERIENCE ================= -->
+<section id="experience">
+  <div class="wrap">
+    <h2>Experience</h2>
+    <p class="sub">Software quality work since 2024, from the support desk to the QA branch.</p>
+    <div class="job">
+      <div class="when">Aug 2026 – Present</div>
+      <div>
+        <h3>Junior SQA Engineer, <span>RazinSoft</span></h3>
+        <ul>
+          <li>Own end-to-end quality for 10+ live SaaS products across website, admin panel and customer, seller, rider and driver apps</li>
+          <li>Validate complete business flows on every release, from listing, cart, checkout and payment through seller acceptance, rider delivery and admin reporting</li>
+          <li>REST API testing in Postman: response codes, JSON payloads and backend business logic such as fee and commission calculations</li>
+          <li>Found and documented high-impact defects, including checkout totals not syncing with live cart updates, missing push notifications for in-ride chat, order payment status not updating after delivery, and non-functional CTA buttons traced to missing link fields in the admin CMS</li>
+          <li>Verify client-customised deployments for clients in the UAE, Kuwait and Saudi Arabia against their own requirements before handover</li>
+          <li>On ReadyPOS, fixed defects and built features directly in the codebase alongside the development team</li>
+        </ul>
+      </div>
+    </div>
+    <div class="job">
+      <div class="when">Nov 2025 – Jan 2026</div>
+      <div>
+        <h3>SQA Intern, <span>Goinnovior Limited</span></h3>
+        <ul><li>Manual and functional testing on live client projects under senior QA guidance, applying STLC practices from test execution to defect reporting</li></ul>
+      </div>
+    </div>
+    <div class="job">
+      <div class="when">Sep 2024 – Sep 2025</div>
+      <div>
+        <h3>Support Team Lead, <span>Shohoz Software</span></h3>
+        <div class="path">Software Support Executive → Interim Team Lead → Support Team Lead</div>
+        <ul>
+          <li>Investigated, reproduced and documented client-reported software issues, turning vague complaints into clear technical findings developers could act on</li>
+          <li>Acted as the bridge between clients and the engineering team, prioritising issues by client impact</li>
+          <li>Promoted twice within 12 months, leading the support team's daily operations</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SKILLS ================= -->
+<section id="skills">
+  <div class="wrap">
+    <h2>Skills</h2>
+    <p class="sub">What I use today, and what I'm adding through the SDET program.</p>
+    <div class="skills">
+      <div class="skill glass"><h3>Testing types</h3>
+        <div class="chips"><span class="chip">Manual</span><span class="chip">Functional</span><span class="chip">End-to-end</span><span class="chip">Regression</span><span class="chip">Smoke</span><span class="chip">Sanity</span><span class="chip">Exploratory</span><span class="chip">Cross-browser</span><span class="chip">Mobile app</span><span class="chip">Admin panel / CMS</span></div></div>
+      <div class="skill glass"><h3>QA process</h3>
+        <div class="chips"><span class="chip">STLC</span><span class="chip">SDLC</span><span class="chip">Defect life cycle</span><span class="chip">Requirement analysis</span><span class="chip">Test case design</span><span class="chip">Root-cause analysis</span><span class="chip">Severity and priority</span><span class="chip">Release triage</span></div></div>
+      <div class="skill glass"><h3>API, data and tools</h3>
+        <div class="chips"><span class="chip cyan">Postman</span><span class="chip">REST API testing</span><span class="chip">JSON validation</span><span class="chip cyan">MySQL (basic SQL)</span><span class="chip cyan">JavaScript (basic)</span><span class="chip cyan">Git / GitHub</span><span class="chip">AI-assisted dev tools</span></div></div>
+      <div class="skill glass"><h3>Learning now</h3>
+        <div class="chips"><span class="chip amber">Playwright</span><span class="chip amber">Newman</span><span class="chip amber">Mocha</span><span class="chip amber">K6</span><span class="chip amber">TypeScript</span><span class="chip amber">Docker</span><span class="chip amber">CI/CD</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ROAD TO SDET ================= -->
+<section id="roadmap">
+  <div class="wrap">
+    <h2>Road to SDET</h2>
+    <p class="sub">A 20-module Full Stack SDET program, started October 2026, ending with a real-world capstone project to deliver within 3 months.</p>
+    <div class="bar"><i></i></div>
+    <div class="barlabel"><span>Program progress</span><span>Just started</span></div>
+    <div class="phases">
+      <div class="phase glass now"><b>1. Foundations</b><span>Manual testing, Postman API testing, MySQL, JavaScript, TypeScript, problem solving</span><em>In progress</em></div>
+      <div class="phase glass"><b>2. Full stack</b><span>Node and Express, Next.js, Docker, system design and architecture</span><em>Upcoming</em></div>
+      <div class="phase glass"><b>3. Performance and security</b><span>K6, Linux, Burp Suite, AWS basics</span><em>Upcoming</em></div>
+      <div class="phase glass"><b>4. Automation</b><span>UI and API automation with Playwright, CI/CD</span><em>Upcoming</em></div>
+      <div class="phase glass"><b>5. Career ready</b><span>Interview preparation, industry-grade capstone project</span><em>Upcoming</em></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EDUCATION ================= -->
+<section>
+  <div class="wrap">
+    <h2>Education and community</h2>
+    <div class="two" style="margin-top:24px">
+      <div class="box glass">
+        <h3>B.Sc. in Software Engineering</h3>
+        <p>Daffodil International University, graduated 2023, CGPA 3.60 / 4.00</p>
+        <h3 style="margin-top:16px">Training</h3>
+        <p style="margin:0">Full Stack SDET Program, Road To SDET (ongoing)<br>Introduction to Software Testing, completed April 2022</p>
+      </div>
+      <div class="box glass">
+        <h3>Community</h3>
+        <p>Volunteer, Bangladesh Aspiring QA Community</p>
+        <h3 style="margin-top:16px">Based in</h3>
+        <p style="margin:0">Dhaka, Bangladesh</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer id="contact">
+  <div class="wrap">
+    <div class="box glass">
+      <h2>Let's build quality software together</h2>
+      <p>Open to SQA Engineer and SDET opportunities. The quickest way to reach me is email; LinkedIn works too.</p>
+      <div class="actions">
+        <a class="btn primary" href="mailto:arifur.swe@gmail.com">Email arifur.swe@gmail.com</a>
+        <a class="btn" href="https://www.linkedin.com/in/arifur-rahman-tuhin-swe/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="https://github.com/tuhin-swe" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="resume.pdf.pdf" target="_blank" rel="noopener">Resume</a>
+      </div>
+      <small>Arifur Rahman Tuhin · Software Quality Assurance Engineer · Dhaka, Bangladesh</small>
+    </div>
+  </div>
+</footer>
+
+<div class="lb" id="lb" role="dialog" aria-label="Screenshot preview"><button type="button" id="lbClose">Close</button><img id="lbImg" src="" alt=""></div>
+
+<script>
+/* =====================================================================
+   PROJECTS: edit this list only. Each project:
+   title    - product or project name
+   domain   - used for the filter buttons (E-commerce, Food delivery, Ride sharing, Property, Retail POS, QA work)
+   role     - what you did on it
+   image    - screenshot URL (leave "" to show a placeholder). Host images on GitHub, e.g.
+              https://raw.githubusercontent.com/tuhin-swe/portfolio-assets/main/readyecommerce.png
+   desc     - one or two lines
+   tested   - bullet list of what you covered (optional)
+   tags     - surfaces or tools
+   link     - repo, live site or case study URL (leave "" to hide the link)
+   ===================================================================== */
+const PROJECTS = [
+  {
+    title: "ReadyEcommerce", domain: "E-commerce", role: "End-to-end manual and API testing",
+    image: "Images/e-commerce.png", desc: "Multi-vendor marketplace and the base platform behind several client stores.",
+    tested: ["Full order flow: listing, cart, checkout, payment, seller acceptance, rider delivery", "Admin panel, commission and fee logic via Postman", "Found checkout totals not syncing with live cart updates"],
+    tags: ["Website", "Admin panel", "Customer app", "Seller app", "Rider app"], link: ""
+  },
+  {
+    title: "ReadyGrocery", domain: "E-commerce", role: "End-to-end manual testing",
+    image: "Images/grocery.png", desc: "Grocery ordering platform built on the ReadyEcommerce foundation.",
+    tested: ["Regression across every release", "Customer, seller and rider app flows", "Retesting every fix before deployment"],
+    tags: ["Website", "Admin panel", "Customer app", "Seller app", "Rider app"], link: ""
+  },
+  {
+    title: "Ready Restaurant", domain: "Food delivery", role: "End-to-end manual testing",
+    image: "Images/food.png", desc: "Restaurant ordering and delivery platform.",
+    tested: ["Order placement to restaurant acceptance to rider delivery", "Admin panel configuration and CMS links", "Bug reports with severity and priority"],
+    tags: ["Website", "Admin panel", "Customer app", "Restaurant app", "Rider app"], link: ""
+  },
+  {
+    title: "ReadyRide", domain: "Ride sharing", role: "End-to-end manual and API testing",
+    image: "Images/ride.png", desc: "Ride-hailing platform with rider and driver apps.",
+    tested: ["Ride request, driver assignment, trip, payment and earnings", "Found missing in-ride chat notifications and payment status not updating after delivery", "Client-customised deployments verified against requirements"],
+    tags: ["Website", "Admin panel", "Rider app", "Driver app"], link: ""
+  },
+  {
+    title: "RentDo", domain: "Property", role: "End-to-end manual testing",
+    image: "Images/rentdo.png", desc: "Property buy, sell and rent marketplace.",
+    tested: ["Listing, search and enquiry flows", "Admin panel moderation and settings", "Customer and seller app coverage"],
+    tags: ["Website", "Admin panel", "Customer app", "Seller app"], link: ""
+  },
+  {
+    title: "ReadyPOS", domain: "Retail POS", role: "QA, then defect fixing and feature development",
+    image: "Images/pos.png", desc: "Point-of-sale system for shops. Tested end to end, then took codebase ownership to make it customer-ready.",
+    tested: ["Fixed defects in a dedicated QA branch", "Built new business-driven features", "Refined the UI into one cohesive system"],
+    tags: ["Full system", "QA + development"], link: ""
+  },
+  {
+    title: "E-commerce API Testing", domain: "QA work", role: "Postman test collection and analysis",
+    image: "", desc: "Published API test cases and test analysis for an e-commerce platform.",
+    tested: ["Response codes and JSON payload validation", "Positive and negative scenarios", "Test analysis document"],
+    tags: ["Postman", "REST API"], link: "https://github.com/tuhin-swe?tab=repositories"
+  },
+  {
+    title: "Manual Test Cases and Bug Reports", domain: "QA work", role: "Test case design",
+    image: "", desc: "Test case sheets, bug reports and test analysis for a live e-commerce site.",
+    tested: ["Functional and regression test cases", "Bug report templates with severity", "Test analysis"],
+    tags: ["Test cases", "Bug reports"], link: "https://github.com/tuhin-swe?tab=repositories"
+  }
+];
+
+const grid = document.getElementById("projectGrid");
+const filters = document.getElementById("filters");
+const domains = ["All", ...new Set(PROJECTS.map(p => p.domain))];
+const initials = s => s.replace(/([a-z])([A-Z])/g, "$1 $2").split(/\s+/).filter(w => /^[A-Za-z0-9]/.test(w)).map(w => w[0]).join("").slice(0, 3).toUpperCase();
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+domains.forEach((d, i) => {
+  const b = document.createElement("button");
+  b.type = "button"; b.textContent = d; if (i === 0) b.classList.add("on");
+  b.addEventListener("click", () => {
+    filters.querySelectorAll("button").forEach(x => x.classList.remove("on")); b.classList.add("on");
+    grid.querySelectorAll(".card").forEach(c => c.classList.toggle("hide", d !== "All" && c.dataset.domain !== d));
+  });
+  filters.appendChild(b);
+});
+
+PROJECTS.forEach(p => {
+  const card = document.createElement("article");
+  card.className = "card glass"; card.dataset.domain = p.domain;
+  const shot = p.image
+    ? `<img src="${esc(p.image)}" alt="${esc(p.title)} screenshot" loading="lazy">`
+    : `<div class="ph"><b>${esc(initials(p.title))}</b><span>Add a screenshot</span></div>`;
+  card.innerHTML = `
+    <div class="shot" ${p.image ? `data-full="${esc(p.image)}"` : ""}>${shot}<span class="chip violet dom">${esc(p.domain)}</span></div>
+    <div class="body">
+      <div class="role">${esc(p.role)}</div>
+      <h3>${esc(p.title)}</h3>
+      <p>${esc(p.desc)}</p>
+      ${p.tested && p.tested.length ? `<ul>${p.tested.map(t => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
+      <div class="foot">
+        <div class="chips">${p.tags.map(t => `<span class="chip">${esc(t)}</span>`).join("")}</div>
+        ${p.link ? `<a class="link" href="${esc(p.link)}" target="_blank" rel="noopener">View</a>` : ""}
+      </div>
+    </div>`;
+  grid.appendChild(card);
+});
+
+/* lightbox */
+const lb = document.getElementById("lb"), lbImg = document.getElementById("lbImg");
+grid.addEventListener("click", e => {
+  const s = e.target.closest(".shot[data-full]"); if (!s) return;
+  lbImg.src = s.dataset.full; lb.classList.add("open");
+});
+const closeLb = () => { lb.classList.remove("open"); lbImg.src = ""; };
+document.getElementById("lbClose").addEventListener("click", closeLb);
+lb.addEventListener("click", e => { if (e.target === lb) closeLb(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeLb(); });
+
+/* theme toggle: remembers your choice, otherwise follows the system setting */
+const root = document.documentElement;
+const getSaved = () => { try { return localStorage.getItem("theme"); } catch (e) { return null; } };
+const setTheme = t => { root.setAttribute("data-theme", t); try { localStorage.setItem("theme", t); } catch (e) {} };
+const systemLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+root.setAttribute("data-theme", getSaved() || (systemLight ? "light" : "dark"));
+document.getElementById("themeBtn").addEventListener("click", () =>
+  setTheme(root.getAttribute("data-theme") === "light" ? "dark" : "light"));
+
+/* mobile menu */
+const nav = document.getElementById("nav"), menuBtn = document.getElementById("menuBtn");
+menuBtn.addEventListener("click", () => {
+  const open = nav.classList.toggle("open"); menuBtn.setAttribute("aria-expanded", open);
+});
+document.querySelectorAll("#navLinks a").forEach(a => a.addEventListener("click", () => nav.classList.remove("open")));
+
+/* highlight the section in view */
+const links = [...document.querySelectorAll("#navLinks a")];
+const byId = Object.fromEntries(links.map(a => [a.getAttribute("href").slice(1), a]));
+if ("IntersectionObserver" in window) {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting && byId[en.target.id]) {
+      links.forEach(l => l.classList.remove("on")); byId[en.target.id].classList.add("on"); } });
+  }, { rootMargin: "-40% 0px -55% 0px" });
+  Object.keys(byId).forEach(id => { const el = document.getElementById(id); if (el) io.observe(el); });
+}
+</script>
+</body>
+</html>
